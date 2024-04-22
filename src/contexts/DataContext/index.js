@@ -27,8 +27,6 @@ export const DataProvider = ({ children }) => {
       setData(d)
 
       const datalast = d.events.sort((evtA, evtB) => new Date (evtA.date) < new Date (evtB.date) ? 1 : -1); 
-      // eslint-disable-next-line no-console
-      console.log(datalast)
       setLast(datalast[0])
 
     } catch (err) {
