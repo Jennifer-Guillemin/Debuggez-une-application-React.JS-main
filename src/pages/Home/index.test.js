@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import Home from "./index";
 
 describe("When Form is created", () => {
@@ -11,6 +11,14 @@ describe("When Form is created", () => {
   });
 
   describe("and a click is triggered on the submit button", () => {
+    beforeEach (() => {
+      jest.useFakeTimers({})
+    })
+
+    afterEach (() => {
+      jest.clearAllTimers()
+    })
+
     it("the success message is displayed", async () => {
       render(<Home />);
       fireEvent(
@@ -21,6 +29,7 @@ describe("When Form is created", () => {
         })
       );
       await screen.findByText("En cours");
+      act(() => jest.advanceTimersByTime(5000));
       await screen.findByText("Message envoyé !");
     });
   });

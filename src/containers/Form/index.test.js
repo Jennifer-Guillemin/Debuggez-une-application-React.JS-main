@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import Form from "./index";
 
 describe("When Events is created", () => {
@@ -11,6 +11,14 @@ describe("When Events is created", () => {
   });
 
   describe("and a click is triggered on the submit button", () => {
+    beforeEach (() => {
+      jest.useFakeTimers({})
+    })
+
+    afterEach (() => {
+      jest.clearAllTimers()
+    })
+
     it("the success action is called", async () => {
       const onSuccess = jest.fn();
       render(<Form onSuccess={onSuccess} />);
@@ -22,7 +30,8 @@ describe("When Events is created", () => {
         })
       );
       await screen.findByText("En cours");
-      screen.findByText("Envoyer");
+      act(() => jest.advanceTimersByTime(5000));
+      await screen.findByText("Envoyer");
       expect(onSuccess).toHaveBeenCalled();
     });
   });
