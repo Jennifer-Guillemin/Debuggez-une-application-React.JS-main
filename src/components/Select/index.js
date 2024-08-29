@@ -16,9 +16,8 @@ const Select = ({
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
     onChange(newValue);
-    // Appelle la fonction onChange avec newValue pour permettre de traiter la nouvelle valeur.
     setValue(newValue);
-    setCollapsed(true); // Fermer le menu après sélection
+    setCollapsed(true);
   };
 
   return (
